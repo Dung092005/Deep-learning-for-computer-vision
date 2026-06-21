@@ -1,6 +1,7 @@
 from torch.utils.data import Dataset
 import os
 import pickle
+import cv2
 
 
 class MyDataset(Dataset):
@@ -30,9 +31,8 @@ class MyDataset(Dataset):
         label = self.labels[item]
         return image, label
 
-
 if __name__ == "__main__":
-    dataset = MyDataset(root="data/cifar-10-batch", train=True)
+    dataset = MyDataset(root="data/cifar-10-batches-py", train=True)
     image, label = dataset[234]
     print(image.shape)
     print(label)
