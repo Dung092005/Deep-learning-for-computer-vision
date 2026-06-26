@@ -1,8 +1,7 @@
 from torch.utils.data import Dataset
 import os
 import pickle
-import cv2
-
+import numpy as np
 
 class MyDataset(Dataset):
     def __init__(self, root, train=True):
@@ -27,12 +26,15 @@ class MyDataset(Dataset):
         return len(self.labels)
 
     def __getitem__(self, item):
-        image = self.images[item]
+        image = self.images[item].reshape((3, 32, 32)).astype(np.float32)  # RGB
         label = self.labels[item]
-        return image, label
+        return image / 255., label
 
 if __name__ == "__main__":
-    dataset = MyDataset(root="data/cifar-10-batches-py", train=True)
+    from pathlib import Path
+
+    data_dir = Path(__file__).resolve().parent / "data" / "cifar-10-batches-py"
+    dataset = MyDataset(root=str(data_dir), train=True)
     image, label = dataset[234]
     print(image.shape)
     print(label)

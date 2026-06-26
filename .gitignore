@@ -1,5 +1,6 @@
 ﻿# Datasets
 data/
+cifar10-neural-network-training/data/
 animals/
 
 # Python
